@@ -26,6 +26,8 @@ class Application_Form_Acceso extends Zend_Form
         $this->addElement('text', 'usuario', array(
             'class' => 'span12',
             'placeholder' => 'Usuario',
+            'filters' => array('StringTrim', 'StringToLower'),
+            'validators' => array('Alnum',array('Regex',false,array('/^[a-z][a-z0-9]{2,}$/'))),
             'required' => true
         ));
         $this->addElement('password', 'clave', array(
@@ -36,7 +38,7 @@ class Application_Form_Acceso extends Zend_Form
         
        // $this->addElement('submit', 'Enviar', array());
     
-        
+       
         return $this;
     }
 }

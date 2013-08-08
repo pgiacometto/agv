@@ -15,10 +15,27 @@ class AccesoController extends Zend_Controller_Action
     {
         $formLogin = $this->_formAcceso->getLogin();
         $formLoginAction = $formLogin->getAction();
+
+        if ($this->getRequest()->isPost()) {
+
+            if ($formLogin->isValid($this->getAllParams())) {
+
+               echo 'Valido Send';exit;
+            } else {
+                
+                $formLogin->usuario->addError('Usuario es Requerido');
+                $this->view->form = $formLogin;
+            }
+        } else {
+
+            $this->view->formAction = $formLoginAction;
+            $this->view->form = $formLogin;
+        }
+    }
+    
+     public function addAction()
+    {
         
-        $this->view->formAction =  $formLoginAction;
-        $this->view->form = $formLogin;
-       
     }
 
 

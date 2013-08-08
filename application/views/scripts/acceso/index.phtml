@@ -70,20 +70,21 @@
 
                                                 <div class="space-6"></div>
 
-                                                <form action="<?php echo $this->formAction;?>">
+                                                <form action="<?php echo $this->formAction;?>" method="post">
                                                     
                                                     <fieldset>
                                                         <label>
                                                             <span class="block input-icon input-icon-right">
                                                                 <?php echo $this->form->usuario;?>
-                                                                <!--input type="text" class="span12" placeholder="Usuario" /-->
+                                                                
                                                                 <i class="icon-user"></i>
                                                             </span>
                                                         </label>
 
                                                         <label>
                                                             <span class="block input-icon input-icon-right">
-                                                                <input type="password" class="span12" placeholder="Clave" />
+                                                                <?php echo $this->form->clave;?>
+                                                                
                                                                 <i class="icon-lock"></i>
                                                             </span>
                                                         </label>
@@ -96,10 +97,8 @@
                                                                 <span class="lbl"> Recordar </span>
                                                             </label>
 
-                                                            <button onclick="return false;" class="width-35 pull-right btn btn-small btn-primary">
-                                                                <i class="icon-key"></i>
-                                                                Entrar
-                                                            </button>
+                                                            <input value="Entrar" type="submit" class="width-35 pull-right btn btn-small btn-primary">
+                                                        
                                                         </div>
 
                                                         <div class="space-4"></div>
