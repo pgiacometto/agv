@@ -7,13 +7,18 @@ class AccesoController extends Zend_Controller_Action
     public function init()
     {
         $this->_formAcceso = new Application_Form_Acceso();
+      // print $this->_formAcceso->getAction();exit;
         /* Initialize action controller here */
     }
 
     public function indexAction()
     {
-        $this->view->form = $this->_formAcceso;
-        // action body
+        $formLogin = $this->_formAcceso->getLogin();
+        $formLoginAction = $formLogin->getAction();
+        
+        $this->view->formAction =  $formLoginAction;
+        $this->view->form = $formLogin;
+       
     }
 
 
