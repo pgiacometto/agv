@@ -22,20 +22,16 @@ class AccesoController extends Zend_Controller_Action
 
                echo 'Valido Send';exit;
             } else {
-                
-                $formLogin->usuario->addError('Usuario es Requerido');
+         
+               // print_r($formLogin->getMessages());exit;
                 $this->view->form = $formLogin;
+                
             }
         } else {
 
             $this->view->formAction = $formLoginAction;
             $this->view->form = $formLogin;
         }
-    }
-    
-     public function addAction()
-    {
-        
     }
 
 

@@ -15,8 +15,12 @@ class Application_Form_Acceso extends Zend_Form
 
     public function init()
     {
-        $this->setElementDecorators(array('ViewHelper','Errors'));
-           
+        $this->setElementDecorators(array(
+            'ViewHelper', 
+            array('Errors', array('class' => 'errorboot')),
+            )
+                ); 
+        
     }
     
     public function getLogin()
@@ -26,8 +30,7 @@ class Application_Form_Acceso extends Zend_Form
         $this->addElement('text', 'usuario', array(
             'class' => 'span12',
             'placeholder' => 'Usuario',
-            'filters' => array('StringTrim', 'StringToLower'),
-            'validators' => array('Alnum',array('Regex',false,array('/^[a-z][a-z0-9]{2,}$/'))),
+            'filters' => array('StringTrim', 'StringToLower'),    
             'required' => true
         ));
         $this->addElement('password', 'clave', array(
@@ -37,8 +40,19 @@ class Application_Form_Acceso extends Zend_Form
         ));
         
        // $this->addElement('submit', 'Enviar', array());
-    
+        
+       
+       $this->usuario->addValidator('notEmpty', true, 
+               array('messages' => array( 'isEmpty' => 'Usuario es obligatorio', ))
+               );
+       $this->usuario->addValidator('EmailAddress', true,
+               array('messages' => array( 'emailAddressInvalidFormat' => 'Usuario debe ser un email valido', ))
+               );
+             
+      
        
         return $this;
     }
+    
+   
 }
