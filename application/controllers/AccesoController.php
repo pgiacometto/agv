@@ -24,6 +24,7 @@ class AccesoController extends Zend_Controller_Action
             } else {
          
                // print_r($formLogin->getMessages());exit;
+                $this->view->error = $formLogin->getMessages();
                 $this->view->form = $formLogin;
                 
             }
