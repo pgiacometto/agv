@@ -42,16 +42,16 @@ class Application_Form_Acceso extends Zend_Form
         
        
        $this->usuario->addValidator('notEmpty', true, 
-               array('messages' => array( 'isEmpty' => 'Es obligatorio', ))
+               array('messages' => array( 'isEmpty' => 'es obligatorio', ))
                );
        $this->usuario->addValidator('EmailAddress', true,
-               array('messages' => array( 'emailAddressInvalidFormat' => 'No es un email valido', ))
+               array('messages' => array( 'emailAddressInvalidFormat' => 'no es un email valido','emailAddressInvalidHostname' => "%value% no es un email valido" ))
                );
        $this->clave->addValidator('notEmpty', true, 
-               array('messages' => array( 'isEmpty' => 'Es obligatorio', ))
+               array('messages' => array( 'isEmpty' => 'es obligatorio', ))
                );
        $this->clave->addValidator('Alnum', true,   
-               array('messages' => array( 'notAlnum' => 'Debe ser alfanum', ))
+               array('messages' => array( 'notAlnum' => 'debe ser alfanum', ))
                );      
        
         return $this;
