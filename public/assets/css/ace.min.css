@@ -899,7 +899,8 @@ margin-right:2px
 	padding-right: 0;
 	min-height: 45px;
 	position: relative;
-	background: #438eb9
+	/*background: #438eb9*/
+	background: #393939
 }
 .navbar .navbar-text, .navbar .navbar-link {
 	color: #fff
@@ -3309,7 +3310,7 @@ margin-right:6px;
 font-size:120%
 }
 .user-info {
-	max-width: 100px;
+	max-width: 200px;
 	display: inline-block;
 	overflow: hidden;
 	text-overflow: ellipsis;
