@@ -24,7 +24,7 @@ class Application_Form_Acceso extends Zend_Form
     
     public function getLogin()
     {
-        $this->setAction('/acceso');
+        $this->setAction('/autenticacion/login');
 
         $this->addElement('text', 'usuario', array(
             'class' => 'span12',

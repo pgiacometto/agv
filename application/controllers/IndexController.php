@@ -12,7 +12,7 @@ class IndexController extends Zend_Controller_Action
         if ($auth->hasIdentity()) {
             $this->_infoUsuario = $auth->getIdentity();
         } else {
-            $this->_redirect("$this->_baseUrl/acceso");
+            $this->_redirect("$this->_baseUrl/autenticacion/login");
         }
         /* Initialize action controller here */
     }

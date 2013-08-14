@@ -1,11 +1,14 @@
 <?php
 
-class AccesoController extends Zend_Controller_Action
+class Autenticacion_LoginController extends Zend_Controller_Action
 {
 
     public $_request = null;
+
     private $_formAcceso = null;
+
     private $_auth = null;
+
     private $_baseUrl = null;
 
     public function init()
@@ -103,4 +106,5 @@ class AccesoController extends Zend_Controller_Action
     }
 
 }
+
 
