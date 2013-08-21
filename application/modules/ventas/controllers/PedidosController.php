@@ -6,6 +6,9 @@ class Ventas_PedidosController extends Zend_Controller_Action
     private $_infoUsuario = null;
 
     private $_baseUrl = null;
+    
+    private $_formPedido = null;
+    
 
     public function init()
     {
@@ -17,7 +20,11 @@ class Ventas_PedidosController extends Zend_Controller_Action
         } else {
             $this->_redirect("$this->_baseUrl/autenticacion/login");
         }
+        $this->view->headLink()->appendStylesheet('/assets/css/chosen.css');
+        $this->view->headScript()->appendFile('/assets/js/chosen.jquery.min.js','text/javascript');
         
+        $this->_formPedido = new Application_Form_Pedido();
+      
         /* Initialize action controller here */
     }
 
@@ -31,7 +38,9 @@ class Ventas_PedidosController extends Zend_Controller_Action
     public function nuevoAction()
     {
         $this->view->headTitulo = "Nuevo Pedido";
-        // action body
+    
+        $this->view->formDatosClientes = $this->_formPedido->getDatosCliente();
+        
     }
 
 

@@ -42,3 +42,20 @@ window.jQuery || document.write("<script src='<?php echo $this->baseUrl;?>/asset
 <script src="<?php echo $this->baseUrl;?>/assets/js/ace.min.js"></script>
 
 <!--inline scripts related to this page-->
+ <?php echo $this->headScript() ?>
+<script type="text/javascript">
+
+$(function() {
+$(".chzn-select").chosen(); 
+});
+//chosen plugin inside a modal will have a zero width because the select element is originally hidden
+				//and its width cannot be determined.
+				//so we set the width after modal is show
+					
+					$(this).find('.chzn-container').each(function(){
+						$(this).find('a:first-child').css('width' , '200px');
+						$(this).find('.chzn-drop').css('width' , '210px');
+						$(this).find('.chzn-search input').css('width' , '200px');
+					});
+				
+</script>

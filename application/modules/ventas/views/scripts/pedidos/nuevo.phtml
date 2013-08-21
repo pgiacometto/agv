@@ -1,4 +1,60 @@
-<br /><br />
-<div id="view-content">
-	<p>View script for controller <b>Pedidos</b> and script/action name <b>nuevo</b></p>
+<div class="page-header position-relative">
+    <h1>
+       Nuevo Pedido
+        <small>
+            <i class="icon-double-angle-right"></i>
+            Ingrese los datos del cliente
+        </small>
+    </h1>
+</div><!--/.page-header-->
+<div class="span10">
+<form id="pedido" action="<?php echo $this->baseUrl . $this->formDatosClientes->getAction(); ?>" class="form-horizontal">
+    
+    <div class="row-fluid">
+        
+        <div class="span7">
+            <label><h4>Cliente</h4></label>
+           <?php echo $this->formDatosClientes->cliente; ?>
+           
+        </div>
+        <div class="span3">
+            <label><h4>Cond. Pago</h4></label>
+           <?php echo $this->formDatosClientes->condPago; ?>
+           
+        </div>
+        <div class="span2">
+            <label ><h4>Creado</h4></label>
+           <?php echo $this->formDatosClientes->fecha; ?>
+           
+        </div>
+      
+   </div>
+     <div class="row-fluid">
+        <div class="span7">
+            <label ><h4>Vendedor</h4></label>
+           <?php echo $this->formDatosClientes->vendedor; ?>
+           
+        </div>
+        <div class="span3">
+           <label >Cond. Pago</label>
+           <?php echo $this->formDatosClientes->condPago; ?>
+           
+        </div>
+        <div class="span2">
+           <label>Creado</label>
+           <?php echo $this->formDatosClientes->fecha; ?>
+           
+        </div>
+   </div>
+
+  
+
+
+
+    
+
+
+
+</form>
+
 </div>

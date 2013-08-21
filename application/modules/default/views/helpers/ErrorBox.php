@@ -18,7 +18,7 @@ class Zend_View_Helper_ErrorBox extends Zend_View_Helper_Abstract
                          <i class="icon-remove"></i>
                        </button>
                        <strong>
-                        <i class="icon-remove"></i>'
+                        <i class="icon-remove"></i> '
                         .ucwords ($i).
                       ' </strong>'
                         .current($value).
