@@ -19,7 +19,7 @@ class Ventas_Model_Vendedores extends Zend_Db_Table_Abstract
         //return $this->fetchAll($select)->toArray();
         $rowset = $this->fetchAll($select);
 
-        $result = array();
+        $result = array('' => '');
 
         foreach ($rowset as $row) {
             $result[$row->idvendedor] = $row->cod.' - '.$row->nombre;

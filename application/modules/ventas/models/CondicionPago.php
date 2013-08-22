@@ -19,7 +19,7 @@ class Ventas_Model_CondicionPago extends Zend_Db_Table_Abstract
         //return $this->fetchAll($select)->toArray();
         $rowset = $this->fetchAll($select);
 
-        $result = array();
+        $result = array('' => '');
 
         foreach ($rowset as $row) {
             $result[$row->idcondicion_pago] = $row->descripcion;

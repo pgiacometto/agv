@@ -46,16 +46,13 @@ window.jQuery || document.write("<script src='<?php echo $this->baseUrl;?>/asset
 <script type="text/javascript">
 
 $(function() {
-$(".chzn-select").chosen(); 
+$(".chzn-select").chosen({width: "100%"}); 
+
+$('.input-mask-date').mask('99/99/9999');
+
+$('.date-picker').datepicker().next().on(ace.click_event, function(){
+					$(this).prev().focus();
+				});
 });
-//chosen plugin inside a modal will have a zero width because the select element is originally hidden
-				//and its width cannot be determined.
-				//so we set the width after modal is show
-					
-					$(this).find('.chzn-container').each(function(){
-						$(this).find('a:first-child').css('width' , '200px');
-						$(this).find('.chzn-drop').css('width' , '210px');
-						$(this).find('.chzn-search input').css('width' , '200px');
-					});
 				
 </script>

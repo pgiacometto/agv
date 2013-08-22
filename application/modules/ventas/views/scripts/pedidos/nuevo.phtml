@@ -1,60 +1,85 @@
 <div class="page-header position-relative">
     <h1>
-       Nuevo Pedido
+        Pedidos
         <small>
             <i class="icon-double-angle-right"></i>
-            Ingrese los datos del cliente
+            Modulo Ventas 
         </small>
     </h1>
 </div><!--/.page-header-->
-<div class="span10">
-<form id="pedido" action="<?php echo $this->baseUrl . $this->formDatosClientes->getAction(); ?>" class="form-horizontal">
-    
-    <div class="row-fluid">
-        
-        <div class="span7">
-            <label><h4>Cliente</h4></label>
-           <?php echo $this->formDatosClientes->cliente; ?>
-           
+<div class="widget-box">
+
+    <div class="widget-header widget-header-blue widget-header-flat">
+        <h4 class="lighter green">Nuevo Pedido</h4>
+    </div>
+
+    <div class="widget-body">
+        <div class="widget-main">
+            <?php if ($this->error): ?>
+                <?php echo $this->errorBox($this->error); ?>
+            <?php endif; ?>
+            <form id="pedido" method="post" action="<?php echo $this->baseUrl . '/' . $this->formDatosClientes->getAction(); ?>" class="form-horizontal">
+
+                <div class="row-fluid">
+
+                    <div class="span7">
+                        <label><h4>Cliente</h4></label>
+                        <?php echo $this->formDatosClientes->cliente; ?>
+
+                    </div>
+                    <div class="span3">
+                        <label><h4>Cond. Pago</h4></label>
+                        <?php echo $this->formDatosClientes->condPago; ?>
+
+                    </div>
+                    <div class="span2">
+                        <label ><h4>Creado</h4></label>
+                        <?php echo $this->formDatosClientes->fechaCreado; ?>
+
+                    </div>
+
+                </div>
+                <div class="row-fluid">
+                    <div class="span7">
+                        <label ><h4>Vendedor</h4></label>
+                        <?php echo $this->formDatosClientes->vendedor; ?>
+
+                    </div>
+                    <div class="span3">
+                        <label ><h4>Status</h4></label>
+                        <?php echo $this->formDatosClientes->status; ?>
+
+                    </div>
+                    <div class="span2">
+                        <label><h4>Despacho</h4></label>
+                        <?php echo $this->formDatosClientes->fechaDespacho; ?>
+
+                    </div>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span7">
+                        <label ><h4>Descripción</h4></label>
+                        <?php echo $this->formDatosClientes->descripcion; ?>
+
+                    </div>  
+                </div>
+
+                <div class="form-actions wizard-actions">                    
+                    <button type="reset" class="btn">
+                        <i class="icon-undo bigger-110"></i>
+                        Reset
+                    </button>
+                    &nbsp; &nbsp; &nbsp;
+                    <button type="submit" class="btn btn-medium btn-success">
+
+                        Guardar y Cargar articulos
+                        <i class="icon-arrow-right icon-on-right"></i>
+                    </button>
+                </div>
+
+            </form>
+
         </div>
-        <div class="span3">
-            <label><h4>Cond. Pago</h4></label>
-           <?php echo $this->formDatosClientes->condPago; ?>
-           
-        </div>
-        <div class="span2">
-            <label ><h4>Creado</h4></label>
-           <?php echo $this->formDatosClientes->fecha; ?>
-           
-        </div>
-      
-   </div>
-     <div class="row-fluid">
-        <div class="span7">
-            <label ><h4>Vendedor</h4></label>
-           <?php echo $this->formDatosClientes->vendedor; ?>
-           
-        </div>
-        <div class="span3">
-           <label >Cond. Pago</label>
-           <?php echo $this->formDatosClientes->condPago; ?>
-           
-        </div>
-        <div class="span2">
-           <label>Creado</label>
-           <?php echo $this->formDatosClientes->fecha; ?>
-           
-        </div>
-   </div>
-
-  
-
-
-
-    
-
-
-
-</form>
-
+    </div>
 </div>
