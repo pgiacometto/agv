@@ -10,7 +10,7 @@
 <div class="widget-box">
 
     <div class="widget-header widget-header-blue widget-header-flat">
-        <h4 class="lighter green">Nuevo Pedido</h4>
+        <h4 class="lighter green">Editar Pedido</h4>
     </div>
 
     <div class="widget-body">
@@ -62,7 +62,22 @@
                         <label ><h4>Descripción</h4>
                             <?php echo $this->formDatosClientes->descripcion; ?>
                         </label>
-                    </div>  
+                    </div>
+                    <div class="span5">
+                        <label >
+                            <div class="infobox infobox-red  ">
+                                <div class="infobox-icon">
+                                    <i class="icon-barcode"></i>
+                                </div>
+                                <div class="infobox-data">
+                                    <span class="infobox-data-number">
+                                        <?php echo $this->idpedido;?>
+                                    </span>
+                                    <div class="infobox-content">N° del Pedido</div>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
                 </div>
 
                 <div class="form-actions wizard-actions">                    

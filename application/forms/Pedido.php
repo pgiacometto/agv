@@ -28,7 +28,7 @@ class Application_Form_Pedido extends Zend_Form
 
     public function getDatosCliente()
     {
-        $this->setAction('ventas/pedidos/nuevo');
+        $this->setAction('/ventas/pedidos/nuevo');
 
         $this->addElement('select', 'cliente', array(
             'label' => 'Cliente',
@@ -92,7 +92,7 @@ class Application_Form_Pedido extends Zend_Form
          $this->vendedor->addValidator('notEmpty', true, 
                array('messages' => array( 'isEmpty' => 'es obligatorio', ))
                );
-         $this->descripcion->addValidator('date', true, 
+         $this->fechaDespacho->addValidator('date', true, 
                array('messages' => array('dateFalseFormat' => ' no es una fecha valida (ejm: dd/mm/aa)', ))
                );
         
