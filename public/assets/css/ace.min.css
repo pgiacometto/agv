@@ -4759,7 +4759,8 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff8f8f8', end
 }
 .table thead tr th {
 	border-color: #DDD;
-	font-weight: bold
+	font-weight: bold;
+	background: none repeat scroll 0 0 lightgrey;
 }
 .table thead tr th [class*="icon-"]:first-child {
 	margin-right: 2px

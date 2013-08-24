@@ -52,8 +52,8 @@ class Ventas_PedidosController extends Zend_Controller_Action
 
                 if ($result->idpedido) {
 
-                    var_dump($result->idpedido);
-                    exit;
+                    $this->_redirect('/ventas/pedidos/editar/id/'.$result->idpedido);
+                  
                 }
             } else {
 
@@ -82,6 +82,9 @@ class Ventas_PedidosController extends Zend_Controller_Action
         if (!$this->_hasParam('id')) {
             return $this->_redirect('/ventas/pedidos/');
         }
+        
+        $this->view->headScript()->appendFile('/assets/js/jquery.dataTables.min.js', 'text/javascript')
+                                 ->appendFile('/assets/js/jquery.dataTables.bootstrap.js', 'text/javascript');
 
         $formDatosClientes = $this->_formPedido->getDatosCliente();
 
