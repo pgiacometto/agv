@@ -11,6 +11,7 @@ class Application_Form_Pedido extends Zend_Form
     private $_modelClientes = null;
     private $_modelVendedores = null;
     private $_modelCondicionPago = null;
+    private $_modelArticulos = null;
   
 
     public function init()
@@ -98,6 +99,25 @@ class Application_Form_Pedido extends Zend_Form
         
 
         return $this;
+    }
+    
+    public function getArticulos()
+    {
+        $this->_modelArticulos = new Inventario_Model_Articulos();
+        
+        $this->setAction('/ventas/pedidos/nuevoarticulo');
+
+        $this->addElement('select', 'articulo', array(
+            'label' => 'Articulo',
+            'class' => 'span chzn-select',
+            'data-placeholder' => 'Selecciona el Articulo...',
+            'required' => true
+        ));
+        $this->articulo->addMultiOptions(
+                $this->_modelArticulos->getValores()
+        );
+        
+        return $this;    
     }
 
     //put your code here

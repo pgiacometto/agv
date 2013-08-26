@@ -7,7 +7,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     {
         $modules = array(
             'Default',
-            'Ventas'
+            'Ventas',
+            'Inventario'
         );
 
         foreach ($modules as $module) {
