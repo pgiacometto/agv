@@ -88,9 +88,10 @@ $('.date-picker').datepicker().next().on(ace.click_event, function(){
 				}
                                 
         $('[data-toggle="modal"]').click(function(e) {
-            $("#load").remove(); 
-            $('<div id="load" class="modal fade">Cargando...</div>').modal();            
-             e.preventDefault();
+            
+             $('<div id="load" class="modal fade">Cargando...</div>').modal();            
+            
+        e.preventDefault();
              var url = $(this).attr('href');
              if (url.indexOf('#') == 0) {
                      $(url).modal('open');
@@ -103,7 +104,7 @@ $('.date-picker').datepicker().next().on(ace.click_event, function(){
                      }).success(function() {                     
                          $('input:text:visible:first').focus();
                          $('#load').modal('hide');
-                         
+                         $("#load").remove();
                      });
                      
              }
