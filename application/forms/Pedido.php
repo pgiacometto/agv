@@ -117,6 +117,34 @@ class Application_Form_Pedido extends Zend_Form
                 $this->_modelArticulos->getValores()
         );
         
+        $this->addElement('text', 'idpedido', array(
+            'label' => 'N° de Pedido',
+            'class' => 'span',
+            'disable' => true,
+            'filters' => array('Alnum'),           
+        ));
+        
+        $this->addElement('text', 'cantidad', array(
+            'label' => 'cantidad',
+            'class' => 'span',        
+            'filters' => array('Digits'),           
+        ));
+        $this->addElement('text', 'desc', array(
+            'label' => 'Descuento',
+            'class' => 'span',        
+            'filters' => array('Digits'),           
+        ));
+        
+        $this->articulo->addValidator('notEmpty', true, 
+               array('messages' => array( 'isEmpty' => 'es obligatorio', ))
+               );
+        
+        $this->cantidad->addValidator('notEmpty', true, 
+               array('messages' => array( 'isEmpty' => 'es obligatorio', ))
+               );
+        
+        
+        
         return $this;    
     }
 

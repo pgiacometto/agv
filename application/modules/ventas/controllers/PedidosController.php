@@ -104,6 +104,21 @@ class Ventas_PedidosController extends Zend_Controller_Action
             $this->view->formDatosClientes = $formDatosClientes;
         }
     }
+    
+    public function agregararticuloAction()
+    {
+        $this->_helper->layout()->disableLayout();
+        
+        if (!$this->_hasParam('id')) {
+            return $this->_redirect('/ventas/pedidos');
+        }
+
+        $formArticulos = $this->_formPedido->getArticulos();
+        $formArticulos->setDefault('idpedido', $this->_getParam('id'));
+        $formArticulos->setDefault('cantidad', 1);
+        $formArticulos->setDefault('desc', 0);
+        $this->view->formArticulos = $formArticulos;
+    }
 
 }
 

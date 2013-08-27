@@ -41,6 +41,7 @@ window.jQuery || document.write("<script src='<?php echo $this->baseUrl;?>/asset
 <script src="<?php echo $this->baseUrl;?>/assets/js/ace-elements.min.js"></script>
 <script src="<?php echo $this->baseUrl;?>/assets/js/ace.min.js"></script>
 
+
 <!--inline scripts related to this page-->
  <?php echo $this->headScript() ?>
 <script type="text/javascript">
@@ -85,6 +86,28 @@ $('.date-picker').datepicker().next().on(ace.click_event, function(){
 					if( parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2) ) return 'right';
 					return 'left';
 				}
+                                
+        $('[data-toggle="modal"]').click(function(e) {
+            $("#load").remove(); 
+            $('<div id="load" class="modal fade">Cargando...</div>').modal();            
+             e.preventDefault();
+             var url = $(this).attr('href');
+             if (url.indexOf('#') == 0) {
+                     $(url).modal('open');
+                    $('#load').modal('hide');  
+             } else {
+ 
+                    $.get(url, function(data) {
+                             $('<div class="modal hide fade">' + data + '</div>').modal();
+                          
+                     }).success(function() {                     
+                         $('input:text:visible:first').focus();
+                         $('#load').modal('hide');
+                         
+                     });
+                     
+             }
+        });
 
 });
 

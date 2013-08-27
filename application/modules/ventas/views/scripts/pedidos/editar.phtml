@@ -84,7 +84,7 @@
 
             <div class="row-fluid">
                 <h4 class="header smaller lighter orange"><strong>Articulos del pedido</strong></h4>
-                <a  href="#" class="btn btn-small btn-primary">
+                <a  href="<?php echo $this->baseUrl('/ventas/pedidos/agregararticulo/id/'.$this->idpedido);?>" class="btn btn-small btn-primary">
                     <i class="icon-plus-sign-alt"></i>   
                     Agregar Articulo
                 </a>
@@ -676,12 +676,16 @@
                     </tbody>
                 </table>
                 
-                <button href="#" type="button" class="btn btn-small btn-primary">
+                <button data-toggle="lightbox" href="#lightbox" data-target="#lightbox" type="button" class="btn btn-small btn-primary">
                     <i class="icon-plus-sign-alt"></i>   
                     Agregar Articulo
                 </button>
             </div>
-        
+        <a href="/ventas/pedidos/agregararticulo/id/20" data-target="#" data-toggle="modal">Launch modal</a>
+                
+              
+       		
+                
           <div class="form-actions wizard-actions">                    
                     <button type="reset" class="btn">
                         <i class="icon-undo bigger-110"></i>
