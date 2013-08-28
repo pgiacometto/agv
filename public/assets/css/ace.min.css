@@ -5885,6 +5885,9 @@ top:35%
 .progress-info.progress-striped .bar, .progress-striped .bar-info {
 	background-color: #148bcf
 }
+.progress.progress-striped .bar, .progress-striped .bar {
+	background-color: #148bcf
+}
 .progress-pink.progress-striped .bar, .progress-striped .bar-pink {
 	background-color: #d6487e;
 	background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255,255,255,0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255,255,255,0.15)), color-stop(0.75, rgba(255,255,255,0.15)), color-stop(0.75, transparent), to(transparent));
@@ -9413,6 +9416,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(enabled=false)!important
 }
 .progress, .progress .bar {
 filter:progid:DXImageTransform.Microsoft.gradient(enabled=false)!important
+    
 }
 .spinner-preview {
 	width: 100px;

@@ -108,16 +108,31 @@ class Ventas_PedidosController extends Zend_Controller_Action
     public function agregararticuloAction()
     {
         $this->_helper->layout()->disableLayout();
-        
-        if (!$this->_hasParam('id')) {
-            return $this->_redirect('/ventas/pedidos');
-        }
 
-        $formArticulos = $this->_formPedido->getArticulos();
-        $formArticulos->setDefault('idpedido', $this->_getParam('id'));
-        $formArticulos->setDefault('cantidad', 1);
-        $formArticulos->setDefault('desc', 0);
-        $this->view->formArticulos = $formArticulos;
+       
+
+        if ($this->_request->isPost()) {
+            
+            $formArticulos = $this->_formPedido->getArticulos();
+            $formArticulos->setDefault('idpedido', $this->_getParam('id'));
+            $formArticulos->setDefault('cantidad', 55);
+            $formArticulos->setDefault('desc', 0);
+            $this->view->formArticulos = $formArticulos;
+            
+        } else {
+            
+             $this->view->headScript()->appendFile('/assets/js/jquery.validate.min.js', 'text/javascript');
+            
+            if (!$this->_hasParam('id')) {
+                return $this->_redirect('/ventas/pedidos');
+            }
+
+            $formArticulos = $this->_formPedido->getArticulos();
+            $formArticulos->setDefault('idpedido', $this->_getParam('id'));
+            $formArticulos->setDefault('cantidad', 1);
+            $formArticulos->setDefault('desc', 0);
+            $this->view->formArticulos = $formArticulos;
+        }
     }
 
 }

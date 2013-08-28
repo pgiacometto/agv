@@ -84,10 +84,10 @@
 
             <div class="row-fluid">
                 <h4 class="header smaller lighter orange"><strong>Articulos del pedido</strong></h4>
-                <a  href="<?php echo $this->baseUrl('/ventas/pedidos/agregararticulo/id/'.$this->idpedido);?>" class="btn btn-small btn-primary">
+                 <button data-toggle="modal-ajax" href="http://agv.aksuglobal.com/ventas/pedidos/editar/id/20" type="button" class="btn btn-small btn-primary">
                     <i class="icon-plus-sign-alt"></i>   
                     Agregar Articulo
-                </a>
+                </button>
             <table id="sample-table-2" class="table table-striped table-bordered table-hover">
                     <thead>
                         
@@ -676,16 +676,14 @@
                     </tbody>
                 </table>
                 
-                <button data-toggle="lightbox" href="#lightbox" data-target="#lightbox" type="button" class="btn btn-small btn-primary">
+                <button data-toggle="modal-ajax" href="http://agv.aksuglobal.com/ventas/pedidos/agregararticulo/id/20" type="button" class="btn btn-small btn-primary">
                     <i class="icon-plus-sign-alt"></i>   
                     Agregar Articulo
                 </button>
             </div>
-        <a href="/ventas/pedidos/agregararticulo/id/20" data-target="#" data-toggle="modal">Launch modal</a>
                 
-              
-       		
-                
+         <button class="demo btn btn-primary btn-large" data-toggle="modal">View Demo</button>
+        
           <div class="form-actions wizard-actions">                    
                     <button type="reset" class="btn">
                         <i class="icon-undo bigger-110"></i>
