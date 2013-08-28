@@ -111,6 +111,8 @@ class Ventas_PedidosController extends Zend_Controller_Action
     public function agregararticuloAction()
     {
         $this->_helper->layout()->disableLayout();
+         
+        $this->view->headScript()->appendFile('/assets/js/fuelux/fuelux.spinner.min.js', 'text/javascript');
 
        
 

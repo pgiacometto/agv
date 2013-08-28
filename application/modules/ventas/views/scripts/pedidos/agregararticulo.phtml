@@ -53,7 +53,7 @@
                         <label class="control-label" for="form-field-first">Cantidad</label>
 
                         <div class="controls">
-                            <br/>
+                           <input type="text" class="input-mini" id="spinner3" />
                             <?php echo $this->formArticulos->cantidad; ?>
 
                             <?php echo $this->formArticulos->desc; ?>
@@ -85,7 +85,9 @@
 <script type="text/javascript">
     $(function() {
 
-        $(".chzn-select").chosen({width: "100%"}); 
+        $(".chzn-select").chosen({width: "100%"});
+        
+        $('#spinner3').ace_spinner({value:1,min:1,max:1000,step:1, icon_up:'icon-plus', icon_down:'icon-minus', btn_up_class:'btn-success' , btn_down_class:'btn-danger'});
 
         $(".select2").css('width', '100%').select2({allowClear: true})
                 .on('change', function() {
