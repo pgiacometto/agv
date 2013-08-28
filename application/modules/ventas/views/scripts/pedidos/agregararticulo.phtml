@@ -1,4 +1,5 @@
-<form id="form-agregararticulo" method="post" action="/ventas/pedidos/agregararticulo/" >
+<form id="validation-form" method="post" action="/ventas/pedidos/editar/id/20">
+
     <div  tabindex="-1">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -13,16 +14,22 @@
                 <div class="span7">
 
                     <div class="control-group">
-                        <label for="form-field-select-3">Location</label>
+                        <label class="control-label" for="state">State</label>
 
                         <div class="controls">
-                            <select class="chzn-select" data-placeholder="Choose a Country...">
-                                <option value=""></option>
-                                <option value="AL">Alabama</option>
-                                <option value="AK">Alaska</option>
-                                <option value="AZ">Arizona</option>
-                                <option value="AR">Arkansas</option>               
-                            </select>
+                            <span class="span12">
+                                <select id="state" name="state" class="select2" data-placeholder="Click to Choose...">
+                                    <option value=""></option>
+                                    <option value="AL">Alabama</option>
+                                    <option value="AK">Alaska</option>
+                                    <option value="AZ">Arizona</option>
+                                    <option value="AR">Arkansas</option>
+                                    <option value="CA">California</option>
+                                    <option value="CO">Colorado</option>
+                                    <option value="CT">Connecticut</option>
+
+                                </select>
+                            </span>
                         </div>
                     </div>
 
@@ -69,88 +76,89 @@
             </button>
         </div>
     </div>
-
-    
-<?php echo $this->headScript() ?>
-    
- <script type="text/javascript">
-
-$(function() {
-    $(".chzn-select").chosen({width: "100%"}); 
-    
-    $('#form-agregararticulo').validate({
-                    errorElement: 'span',
-                    errorClass: 'help-inline',
-                    focusInvalid: false,
-                    rules: {
-                       
-                        articulo: {
-                            required: true
-                        },
-                        cantidad: {
-                            required: true,
-                            num: true
-                        },
-                        phone: {
-                            required: true,
-                            phone: 'required'
-                        },
-                        
-                        agree: 'required'
-                    },
-                    messages: {
-                        articulo: {
-                            required: "Debe Selecionar un arcticulo",
-                            
-                        },
-                        cantidad: {
-                            required: "es obligatorio",
-                            num: "Cantidad distinta de cero",
-                            
-                        },
-                        password: {
-                            required: "Please specify a password.",
-                            minlength: "Please specify a secure password."
-                        },
-                        subscription: "Please choose at least one option",
-                        gender: "Please choose gender",
-                        agree: "Please accept our policy"
-                    },
-                    invalidHandler: function(event, validator) { //display error alert on form submit   
-                        $('.alert-error', $('.login-form')).show();
-                    },
-                    highlight: function(e) {
-                        $(e).closest('.control-group').removeClass('info').addClass('error');
-                    },
-                    success: function(e) {
-                        $(e).closest('.control-group').removeClass('error').addClass('info');
-                        $(e).remove();
-                    },
-                    errorPlacement: function(error, element) {
-                        if (element.is(':checkbox') || element.is(':radio')) {
-                            var controls = element.closest('.controls');
-                            if (controls.find(':checkbox,:radio').length > 1)
-                                controls.append(error);
-                            else
-                                error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
-                        }
-                        else if (element.is('.select2')) {
-                            error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
-                        }
-                        else if (element.is('.chzn-select')) {
-                            error.insertAfter(element.siblings('[class*="chzn-container"]:eq(0)'));
-                        }
-                        else
-                            error.insertAfter(element);
-                    },
-                    submitHandler: function(form) {
-                    },
-                    invalidHandler: function(form) {
-                    }
-                });
-    
-});
-    </script>  
-    
 </form>
-<!--PAGE CONTENT ENDS-->
+
+
+<?php echo $this->headScript() ?>
+<!--inline scripts related to this page-->
+
+<script type="text/javascript">
+    $(function() {
+
+        $(".chzn-select").chosen({width: "100%"}); 
+
+        $(".select2").css('width', '100%').select2({allowClear: true})
+                .on('change', function() {
+            $(this).closest('form').validate().element($(this));
+        });
+
+        //documentation : http://docs.jquery.com/Plugins/Validation/validate
+
+        $('#validation-form').validate({
+            errorElement: 'span',
+            errorClass: 'help-inline',
+            focusInvalid: false,
+            rules: {
+                state: {
+                    required: true
+                },
+                articulo: {
+                    required: true
+                },
+                cantidad: {
+                    required: true
+                },
+                desc: {
+                    required: true
+                },
+            },
+            messages: {
+                articulo: {
+                    required: "Please provide a valid email.",
+                },
+                state: {
+                    required: "Please specify a password.",
+                },
+                
+            },
+            invalidHandler: function(event, validator) { //display error alert on form submit   
+                $('.alert-error', $('.login-form')).show();
+            },
+            highlight: function(e) {
+                $(e).closest('.control-group').removeClass('success').addClass('error');
+            },
+            success: function(e) {
+                $(e).closest('.control-group').removeClass('error').addClass('success');
+                $(e).remove();
+            },
+            errorPlacement: function(error, element) {
+                if (element.is(':checkbox') || element.is(':radio')) {
+                    var controls = element.closest('.controls');
+                    if (controls.find(':checkbox,:radio').length > 1)
+                        controls.append(error);
+                    else
+                        error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
+                }
+                else if (element.is('.select2')) {
+                    error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
+                }
+                else if (element.is('.chzn-select')) {
+                    error.insertAfter(element.siblings('[class*="chzn-container"]:eq(0)'));
+                }
+                else
+                    error.insertAfter(element);
+            },
+            submitHandler: function(form) {
+                alert('submit');
+            },
+            invalidHandler: function(form) {
+            }
+        });
+
+
+
+
+        $('#modal-wizard .modal-header').ace_wizard();
+        $('#modal-wizard .wizard-actions .btn[data-dismiss=modal]').removeAttr('disabled');
+    })
+</script>

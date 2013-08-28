@@ -19,9 +19,12 @@ class Ventas_PedidosController extends Zend_Controller_Action
         } else {
             $this->_redirect("$this->_baseUrl/autenticacion/login");
         }
-        $this->view->headLink()->appendStylesheet('/assets/css/chosen.css');
+        $this->view->headLink()->appendStylesheet('/assets/css/chosen.css')
+                               ->appendStylesheet('/assets/css/select2.css');
         $this->view->headScript()->appendFile('/assets/js/chosen.jquery.min.js', 'text/javascript')
                 ->appendFile('/assets/js/date-time/bootstrap-datepicker.min.js', 'text/javascript')
+                ->appendFile('/assets/js/jquery.validate.min.js', 'text/javascript')
+                ->appendFile('/assets/js/select2.min.js', 'text/javascript')
                 ->appendFile('/assets/js/jquery.maskedinput.min.js', 'text/javascript');
 
         $this->_formPedido = new Application_Form_Pedido();
@@ -121,7 +124,7 @@ class Ventas_PedidosController extends Zend_Controller_Action
             
         } else {
             
-             $this->view->headScript()->appendFile('/assets/js/jquery.validate.min.js', 'text/javascript');
+             
             
             if (!$this->_hasParam('id')) {
                 return $this->_redirect('/ventas/pedidos');
@@ -129,8 +132,8 @@ class Ventas_PedidosController extends Zend_Controller_Action
 
             $formArticulos = $this->_formPedido->getArticulos();
             $formArticulos->setDefault('idpedido', $this->_getParam('id'));
-            $formArticulos->setDefault('cantidad', 1);
-            $formArticulos->setDefault('desc', 0);
+//            $formArticulos->setDefault('cantidad', 1);
+//            $formArticulos->setDefault('desc', 0);
             $this->view->formArticulos = $formArticulos;
         }
     }

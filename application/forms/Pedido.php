@@ -110,7 +110,7 @@ class Application_Form_Pedido extends Zend_Form
         $this->addElement('select', 'articulo', array(
             'label' => 'Articulo',
             'class' => 'span chzn-select',
-            'data-placeholder' => 'Selecciona el Articulo...',
+            'data-placeholder' => '.',
             'required' => true
         ));
         $this->articulo->addMultiOptions(
