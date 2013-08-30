@@ -101,23 +101,23 @@ class Application_Form_Pedido extends Zend_Form
         return $this;
     }
     
-    public function getArticulos()
+    public function getAgregarArticulos()
     {
         $this->_modelArticulos = new Inventario_Model_Articulos();
         
-        $this->setAction('/ventas/pedidos/nuevoarticulo');
+        $this->setAction('/ventas/pedidos/agregararticulo');
 
-        $this->addElement('select', 'articulo', array(
+        $this->addElement('select', 'idarticulo', array(
             'label' => 'Articulo',
             'class' => 'span chzn-select',
-            'data-placeholder' => '.',
+            'data-placeholder' => 'Seleccione un Articulo',
             'required' => true
         ));
-        $this->articulo->addMultiOptions(
+        $this->idarticulo->addMultiOptions(
                 $this->_modelArticulos->getValores()
         );
         
-        $this->addElement('text', 'idpedido', array(
+        $this->addElement('hidden', 'idpedido', array(
             'label' => 'N° de Pedido',
             'class' => 'span',
             'disable' => true,
@@ -129,13 +129,19 @@ class Application_Form_Pedido extends Zend_Form
             'class' => 'span',        
             'filters' => array('Digits'),           
         ));
-        $this->addElement('text', 'desc', array(
+        $this->addElement('select', 'desc', array(
             'label' => 'Descuento',
             'class' => 'span',        
             'filters' => array('Digits'),           
         ));
+        $this->desc->addMultiOptions(array(
+                '0' => '0%',
+                '5' => '5%',
+                '10' => '10%',
+            )
+        );
         
-        $this->articulo->addValidator('notEmpty', true, 
+        $this->idarticulo->addValidator('notEmpty', true, 
                array('messages' => array( 'isEmpty' => 'es obligatorio', ))
                );
         

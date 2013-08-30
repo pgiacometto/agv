@@ -23,6 +23,7 @@ class Ventas_Model_Pedidos extends Zend_Db_Table_Abstract
 
         return $row;
     }
+    
 
     public function getPedido($id)
     {

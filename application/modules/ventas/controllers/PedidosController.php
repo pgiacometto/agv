@@ -96,12 +96,18 @@ class Ventas_PedidosController extends Zend_Controller_Action
         } else {
             $rowPedido = $this->_modelPedidos->getPedido($this->getParam('id'));
 
-            if ($rowPedido) {
+            if ($rowPedido) {         
                 $formDatosClientes->setAction('/ventas/pedidos/editar');
                 //$formDatosClientes->populate($rowPedido->toArray());
                 $rowToArray = $this->_modelPedidos->rowPedidoToArray($rowPedido);
                 $formDatosClientes->populate($rowToArray);
+                
+                $modelPedidosHasArticulo = new Ventas_Model_PedidosHasArticulos();
+                $articulosPedido = $modelPedidosHasArticulo->getArticulos($this->getParam('id'));
+                
+                $this->view->articulosPedidos = $articulosPedido;
             }
+            
             
             $this->view->idpedido = $this->getParam('id');
             $this->view->formDatosClientes = $formDatosClientes;
@@ -111,31 +117,41 @@ class Ventas_PedidosController extends Zend_Controller_Action
     public function agregararticuloAction()
     {
         $this->_helper->layout()->disableLayout();
-         
+
         $this->view->headScript()->appendFile('/assets/js/fuelux/fuelux.spinner.min.js', 'text/javascript');
 
-       
+        $formArticulos = $this->_formPedido->getAgregarArticulos();
 
         if ($this->_request->isPost()) {
-            
-            $formArticulos = $this->_formPedido->getArticulos();
-            $formArticulos->setDefault('idpedido', $this->_getParam('id'));
-            $formArticulos->setDefault('cantidad', 55);
-            $formArticulos->setDefault('desc', 0);
-            $this->view->formArticulos = $formArticulos;
-            
+
+            if ($formArticulos->isValid($this->getAllParams())) {
+
+                $modelPedidosHasArticulo = new Ventas_Model_PedidosHasArticulos();
+                $result = $modelPedidosHasArticulo->addPedidoHasArticulo($this->getAllParams());
+
+                if ($result->idpedido) {
+
+                    var_dump($result);
+                } else {
+                    echo 'pedo';
+                    exit;
+                }
+            } else {
+                
+            }
         } else {
-            
-             
-            
+
+
+
             if (!$this->_hasParam('id')) {
                 return $this->_redirect('/ventas/pedidos');
             }
 
-            $formArticulos = $this->_formPedido->getArticulos();
+
+
             $formArticulos->setDefault('idpedido', $this->_getParam('id'));
-//            $formArticulos->setDefault('cantidad', 1);
-//            $formArticulos->setDefault('desc', 0);
+
+            $this->view->idpedido = $this->_getParam('id');
             $this->view->formArticulos = $formArticulos;
         }
     }
