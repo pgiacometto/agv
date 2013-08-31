@@ -4,9 +4,13 @@ class Ventas_PedidosController extends Zend_Controller_Action
 {
 
     private $_infoUsuario = null;
+
     private $_baseUrl = null;
+
     private $_formPedido = null;
+
     private $_date = null;
+
     private $_modelPedidos = null;
 
     public function init()
@@ -104,7 +108,7 @@ class Ventas_PedidosController extends Zend_Controller_Action
                 
                 $modelPedidosHasArticulo = new Ventas_Model_PedidosHasArticulos();
                 $articulosPedido = $modelPedidosHasArticulo->getArticulos($this->getParam('id'));
-                
+                $this->view->itemsArticulos = $articulosPedido->count();
                 $this->view->articulosPedidos = $articulosPedido;
             }
             
@@ -113,14 +117,14 @@ class Ventas_PedidosController extends Zend_Controller_Action
             $this->view->formDatosClientes = $formDatosClientes;
         }
     }
-    
+
     public function agregararticuloAction()
     {
         $this->_helper->layout()->disableLayout();
 
         $this->view->headScript()->appendFile('/assets/js/fuelux/fuelux.spinner.min.js', 'text/javascript');
 
-        $formArticulos = $this->_formPedido->getAgregarArticulos();
+        $formArticulos = $this->_formPedido->getDatosArticulos();
 
         if ($this->_request->isPost()) {
 
@@ -131,7 +135,7 @@ class Ventas_PedidosController extends Zend_Controller_Action
 
                 if ($result->idpedido) {
 
-                    var_dump($result);
+                    $this->_redirect("/ventas/pedidos/editar/id/$result->idpedido");
                 } else {
                     echo 'pedo';
                     exit;
@@ -147,14 +151,38 @@ class Ventas_PedidosController extends Zend_Controller_Action
                 return $this->_redirect('/ventas/pedidos');
             }
 
-
-
             $formArticulos->setDefault('idpedido', $this->_getParam('id'));
-
+             
             $this->view->idpedido = $this->_getParam('id');
             $this->view->formArticulos = $formArticulos;
         }
     }
 
+    public function editararticuloAction()
+    {
+       $this->_helper->layout()->disableLayout();
+       
+        if ($this->getRequest()->isPost()) {
+            
+        } else {
+            
+           if (!$this->_hasParam('id')) {
+            return $this->_redirect('/ventas/pedidos/');
+          } 
+            
+           $modelPhA = new Ventas_Model_PedidosHasArticulos();
+           
+           $rowArticuloToArray = $modelPhA->rowArticuloToArray($this->_getParam('id'));
+            
+           $formArticulos = $this->_formPedido->getDatosArticulos();
+           $formArticulos->setaction('/ventas/pedidos/editararticulo');
+           $this->view->formDatosArticulos = $formArticulos->populate($rowArticuloToArray);
+        }
+        
+    }
+
+
 }
+
+
 

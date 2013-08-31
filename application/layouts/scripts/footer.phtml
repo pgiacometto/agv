@@ -35,7 +35,7 @@ window.jQuery || document.write("<script src='<?php echo $this->baseUrl;?>/asset
 <script src="<?php echo $this->baseUrl;?>/assets/js/bootstrap.min.js"></script>
 
 <!--page specific plugin scripts-->
- <script type="text/javascript" src="http://getbootstrap.com/2.3.2/assets/js/google-code-prettify/prettify.js"></script>
+ <script type="text/javascript" src="<?php echo $this->baseUrl;?>/assets/js/prettify.js"></script>
     
     <script src="http://localhost/bootstrap-modal/js/bootstrap-modalmanager.js"></script>
     <script src="http://localhost/bootstrap-modal/js/bootstrap-modal.js"></script>
@@ -63,8 +63,8 @@ $('.date-picker').datepicker().next().on(ace.click_event, function(){
                                 
     var oTable1 = $('#sample-table-2').dataTable( {
         "aoColumns": [
-        { "bSortable": false },
-        null, null,null, null, null,
+        { "bSortable": true },
+         null, null, null,null, null, null,
           { "bSortable": false }
     ] } );
 

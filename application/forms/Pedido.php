@@ -101,7 +101,7 @@ class Application_Form_Pedido extends Zend_Form
         return $this;
     }
     
-    public function getAgregarArticulos()
+    public function getDatosArticulos()
     {
         $this->_modelArticulos = new Inventario_Model_Articulos();
         
