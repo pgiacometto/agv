@@ -141,6 +141,7 @@ class Application_Form_Pedido extends Zend_Form
             )
         );
         
+        
         $this->idarticulo->addValidator('notEmpty', true, 
                array('messages' => array( 'isEmpty' => 'es obligatorio', ))
                );
@@ -152,6 +153,13 @@ class Application_Form_Pedido extends Zend_Form
         
         
         return $this;    
+    }
+    
+    public function getBorrar()
+    {
+        $this->addElement('hidden','id');
+        
+        return $this;
     }
 
     //put your code here

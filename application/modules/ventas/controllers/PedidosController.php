@@ -24,12 +24,13 @@ class Ventas_PedidosController extends Zend_Controller_Action
             $this->_redirect("$this->_baseUrl/autenticacion/login");
         }
         $this->view->headLink()->appendStylesheet('/assets/css/chosen.css')
-                               ->appendStylesheet('/assets/css/select2.css');
+                ->appendStylesheet('/assets/css/select2.css');
         $this->view->headScript()->appendFile('/assets/js/chosen.jquery.min.js', 'text/javascript')
                 ->appendFile('/assets/js/date-time/bootstrap-datepicker.min.js', 'text/javascript')
                 ->appendFile('/assets/js/jquery.validate.min.js', 'text/javascript')
                 ->appendFile('/assets/js/select2.min.js', 'text/javascript')
-                ->appendFile('/assets/js/jquery.maskedinput.min.js', 'text/javascript');
+                ->appendFile('/assets/js/jquery.maskedinput.min.js', 'text/javascript')
+                ->appendFile('/assets/js/fuelux/fuelux.spinner.min.js', 'text/javascript');
 
         $this->_formPedido = new Application_Form_Pedido();
         $this->_date = new Zend_Date();
@@ -59,8 +60,7 @@ class Ventas_PedidosController extends Zend_Controller_Action
 
                 if ($result->idpedido) {
 
-                    $this->_redirect('/ventas/pedidos/editar/id/'.$result->idpedido);
-                  
+                    $this->_redirect('/ventas/pedidos/editar/id/' . $result->idpedido);
                 }
             } else {
 
@@ -78,10 +78,15 @@ class Ventas_PedidosController extends Zend_Controller_Action
             $this->view->formDatosClientes = $formDatosClientes;
         }
     }
-
-    public function agregarAction()
+    
+    public function listaAction()
     {
-        // action body
+        $this->view->headScript()->appendFile('/assets/js/jquery.dataTables.min.js', 'text/javascript')
+                ->appendFile('/assets/js/jquery.dataTables.bootstrap.js', 'text/javascript');
+        
+        $pedidosLista = $this->_modelPedidos->getListaPedidos();
+        //var_dump($pedidosLista);exit;
+        $this->view->pedidosLista = $pedidosLista;
     }
 
     public function editarAction()
@@ -89,9 +94,9 @@ class Ventas_PedidosController extends Zend_Controller_Action
         if (!$this->_hasParam('id')) {
             return $this->_redirect('/ventas/pedidos/');
         }
-        
+
         $this->view->headScript()->appendFile('/assets/js/jquery.dataTables.min.js', 'text/javascript')
-                                 ->appendFile('/assets/js/jquery.dataTables.bootstrap.js', 'text/javascript');
+                ->appendFile('/assets/js/jquery.dataTables.bootstrap.js', 'text/javascript');
 
         $formDatosClientes = $this->_formPedido->getDatosCliente();
 
@@ -100,19 +105,19 @@ class Ventas_PedidosController extends Zend_Controller_Action
         } else {
             $rowPedido = $this->_modelPedidos->getPedido($this->getParam('id'));
 
-            if ($rowPedido) {         
+            if ($rowPedido) {
                 $formDatosClientes->setAction('/ventas/pedidos/editar');
                 //$formDatosClientes->populate($rowPedido->toArray());
                 $rowToArray = $this->_modelPedidos->rowPedidoToArray($rowPedido);
                 $formDatosClientes->populate($rowToArray);
-                
+
                 $modelPedidosHasArticulo = new Ventas_Model_PedidosHasArticulos();
                 $articulosPedido = $modelPedidosHasArticulo->getArticulos($this->getParam('id'));
                 $this->view->itemsArticulos = $articulosPedido->count();
                 $this->view->articulosPedidos = $articulosPedido;
             }
-            
-            
+
+
             $this->view->idpedido = $this->getParam('id');
             $this->view->formDatosClientes = $formDatosClientes;
         }
@@ -121,8 +126,6 @@ class Ventas_PedidosController extends Zend_Controller_Action
     public function agregararticuloAction()
     {
         $this->_helper->layout()->disableLayout();
-
-        $this->view->headScript()->appendFile('/assets/js/fuelux/fuelux.spinner.min.js', 'text/javascript');
 
         $formArticulos = $this->_formPedido->getDatosArticulos();
 
@@ -135,9 +138,9 @@ class Ventas_PedidosController extends Zend_Controller_Action
 
                 if ($result->idpedido) {
 
-                    $this->_redirect("/ventas/pedidos/editar/id/$result->idpedido");
+                    $this->_redirect("/ventas/pedidos/editar/id/$result->idpedido#art");
                 } else {
-                    echo 'pedo';
+                    echo 'Error Sistema';
                     exit;
                 }
             } else {
@@ -152,7 +155,7 @@ class Ventas_PedidosController extends Zend_Controller_Action
             }
 
             $formArticulos->setDefault('idpedido', $this->_getParam('id'));
-             
+
             $this->view->idpedido = $this->_getParam('id');
             $this->view->formArticulos = $formArticulos;
         }
@@ -160,26 +163,72 @@ class Ventas_PedidosController extends Zend_Controller_Action
 
     public function editararticuloAction()
     {
-       $this->_helper->layout()->disableLayout();
-       
+        $this->_helper->layout()->disableLayout();
+
+        $modelPhA = new Ventas_Model_PedidosHasArticulos();
+        $formArticulos = $this->_formPedido->getDatosArticulos();
+
         if ($this->getRequest()->isPost()) {
-            
+
+            if ($formArticulos->isValid($this->getAllParams())) {
+
+                $modelPhA->updateFila($formArticulos->getValues(), $this->getParam('idpha'));
+                return $this->_redirect('/ventas/pedidos/editar/id/' . $this->getParam('idpedido') . '#art');
+            } else {
+
+                echo 'Error del Sitema';
+                exit;
+            }
         } else {
-            
-           if (!$this->_hasParam('id')) {
-            return $this->_redirect('/ventas/pedidos/');
-          } 
-            
-           $modelPhA = new Ventas_Model_PedidosHasArticulos();
-           
-           $rowArticuloToArray = $modelPhA->rowArticuloToArray($this->_getParam('id'));
-            
-           $formArticulos = $this->_formPedido->getDatosArticulos();
-           $formArticulos->setaction('/ventas/pedidos/editararticulo');
-           $this->view->formDatosArticulos = $formArticulos->populate($rowArticuloToArray);
+
+            if (!$this->_hasParam('id')) {
+                return $this->_redirect('/ventas/pedidos/');
+            }
+
+            $rowArticuloToArray = $modelPhA->rowArticuloToArray($this->_getParam('id'));
+
+
+            $formArticulos->setAction('/ventas/pedidos/editararticulo');
+            $formArticulos->addElement('hidden', 'idpha')->setDefault('idpha', $this->_getParam('id'));
+
+            $this->view->idpedido = $rowArticuloToArray['idpedido'];
+            $this->view->formDatosArticulos = $formArticulos->populate($rowArticuloToArray);
         }
-        
     }
+
+    public function borrararticuloAction()
+    {
+        $this->_helper->layout()->disableLayout();
+
+        if ($this->getRequest()->isPost()) {
+
+            $modelPhA = new Ventas_Model_PedidosHasArticulos();
+            $fila = $modelPhA->getArticulo($this->_getParam('id'));
+            
+            if ($fila) {
+                $idpedido = $fila->idpedido;
+                $fila->delete();          
+                return $this->redirect('/ventas/pedidos/editar/id/' . $idpedido.'#art');
+            } else {
+
+                echo 'Error del Sitema';
+                exit;
+            }
+        } else {
+
+            if (!$this->_hasParam('id')) {
+                return $this->_redirect('/ventas/pedidos/');
+            }
+
+            $formborrar = $this->_formPedido->getBorrar();
+            $formborrar->setAction('/ventas/pedidos/borrararticulo');
+            $formborrar->setDefault('id', $this->_getParam('id'));
+            $this->view->formBorrar = $formborrar;
+        }
+        // action body
+    }
+
+    
 
 
 }

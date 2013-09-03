@@ -26,7 +26,9 @@ class Ventas_Model_PedidosHasArticulos extends Zend_Db_Table_Abstract
     public function getArticulos($idpedido = NULL)
     {
         $query = $this->select()
-                ->from(array('pha' => 'pedidos_has_articulos'),array('pha.idpha','pha.idpedido', 'a.idarticulo','ap.precio1', 'a.cod', 'a.descripcion',  'pha.cantidad', 'pha.desc'))
+                ->from(array('pha' => 'pedidos_has_articulos'),array('pha.idpha','pha.idpedido', 'a.idarticulo',
+                                                                     'ap.precio1', 'a.cod', 'a.descripcion',  'pha.cantidad', 
+                                                                     'pha.desc'))
                 ->join(array('a' => 'articulos'), 'pha.idarticulo = a.idarticulo',array(''))               
                 ->join(array('ap' => 'articulos_precios'), 'a.cod = ap.articulo_cod',array(''))               
                              
@@ -63,6 +65,13 @@ class Ventas_Model_PedidosHasArticulos extends Zend_Db_Table_Abstract
 
 
         return $result;
+    }
+    
+     public function updateFila($data, $id)
+    {
+        $fila = $this->getArticulo($id);
+        $fila->setFromArray($data);
+        $fila->save();
     }
 
 }

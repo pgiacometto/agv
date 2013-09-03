@@ -24,6 +24,31 @@ class Ventas_Model_Pedidos extends Zend_Db_Table_Abstract
         return $row;
     }
     
+    public function getLista()
+    {
+        return $this->fetchAll();    
+        
+    }
+    
+    public function getListaPedidos($idpedido = NULL)
+    {
+        $query = $this->select()
+                ->from(array('p' => 'pedidos'),array('p.idpedido','p.descripcion', 'p.status', 
+                                                     'p.monto_total','p.create_at','v.cod', 'v.nombre',''))
+                ->join(array('v' => 'vendedores'), 'p.idvendedor = v.idvendedor',array(''))                                           
+                ->setIntegrityCheck(false);
+              
+        
+        if($idpedido){
+            $query->where('pha.idpedido = '.$idpedido);
+        }
+        $query->order('p.create_at ASC');
+        
+       return $this->fetchAll( $query );
+        
+    }
+
+
 
     public function getPedido($id)
     {

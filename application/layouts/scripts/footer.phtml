@@ -68,6 +68,13 @@ $('.date-picker').datepicker().next().on(ace.click_event, function(){
           { "bSortable": false }
     ] } );
 
+    var oTable2 = $('#listapedidos').dataTable( {
+        "aoColumns": [
+        { "bSortable": true },
+         null, null, null,null,
+          { "bSortable": false }
+    ] } );
+
 
     $('table th input:checkbox').on('click' , function(){
             var that = this;
