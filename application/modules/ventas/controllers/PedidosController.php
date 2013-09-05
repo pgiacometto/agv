@@ -4,13 +4,9 @@ class Ventas_PedidosController extends Zend_Controller_Action
 {
 
     private $_infoUsuario = null;
-
     private $_baseUrl = null;
-
     private $_formPedido = null;
-
     private $_date = null;
-
     private $_modelPedidos = null;
 
     public function init()
@@ -20,6 +16,7 @@ class Ventas_PedidosController extends Zend_Controller_Action
         if ($auth->hasIdentity()) {
             $this->_infoUsuario = $auth->getIdentity();
             $this->view->infoUsuario = $this->_infoUsuario;
+           // var_dump($this->_infoUsuario);
         } else {
             $this->_redirect("$this->_baseUrl/autenticacion/login");
         }
@@ -48,8 +45,9 @@ class Ventas_PedidosController extends Zend_Controller_Action
     public function nuevoAction()
     {
         $this->view->headTitulo = "Nuevo Pedido";
-
-        $formDatosClientes = $this->_formPedido->getDatosCliente();
+        
+        $idusuario = $this->_infoUsuario->idusuario;
+        $formDatosClientes = $this->_formPedido->getDatosCliente("idusuario = $idusuario");
 
         if ($this->_request->isPost()) {
 
@@ -72,18 +70,76 @@ class Ventas_PedidosController extends Zend_Controller_Action
             }
         } else {
 
+            if ($this->_hasParam('ac')) {
+                switch ($this->getParam('ac')) {
+                    case 1:
+                        $this->view->exito = array('Exito ' => array('DB' => 'Cliente Registrado'));
+                        $formDatosClientes->setDefault('cliente', $this->getParam('c'));
+                        break;
+                    case 2:
+                        $this->view->error = array('ERROR ' => array('DB' => 'Rif Existente'));
+                        break;
+
+                    default:
+
+                        break;
+                }
+            }
+
             $formDatosClientes->setDefault('fechaCreado', $this->_date->now()->toString('dd/MM/yyyy'));
             $formDatosClientes->setDefault('status', 'No Registrado');
 
             $this->view->formDatosClientes = $formDatosClientes;
         }
     }
-    
+
+    public function agregarclienteAction()
+    {
+        $this->_helper->layout()->disableLayout();
+
+        $formCrearCliente = $this->_formPedido->getCrearCliente();
+
+        if ($this->getRequest()->isPost()) {
+
+            if ($formCrearCliente->isValid($this->getAllParams())) {
+
+                $modelClientes = new Ventas_Model_Clientes();
+
+                try {
+                    $row = $modelClientes->addClienteTemporal($this->getAllParams());
+                    $this->_redirect('/ventas/pedidos/nuevo/ac/1/c/'.$row->idcliente);
+                } catch (Exception $e) {
+                    switch ($e->getCode()) {
+                        case 23000:
+                            $this->_redirect('/ventas/pedidos/nuevo/ac/2');
+                            break;
+                        default:
+                            echo $e->getCode() . '<br/>' . $e->getMessage();
+                            exit;
+                            break;
+                    }
+                }
+            } else {
+
+                echo 'form invalido';
+                exit;
+            }
+        } else {
+
+
+            $formCrearCliente->setAction('/ventas/pedidos/agregarcliente/');
+
+            $this->view->formCrearCliente = $formCrearCliente;
+        }
+        // action body
+    }
+
     public function listaAction()
     {
         $this->view->headScript()->appendFile('/assets/js/jquery.dataTables.min.js', 'text/javascript')
-                ->appendFile('/assets/js/jquery.dataTables.bootstrap.js', 'text/javascript');
-        
+                ->appendFile('/assets/js/jquery.dataTables.bootstrap.js', 'text/javascript')
+                ->appendFile('/assets/js/run/runDataTable.js', 'text/javascript');
+
         $pedidosLista = $this->_modelPedidos->getListaPedidos();
         //var_dump($pedidosLista);exit;
         $this->view->pedidosLista = $pedidosLista;
@@ -96,7 +152,8 @@ class Ventas_PedidosController extends Zend_Controller_Action
         }
 
         $this->view->headScript()->appendFile('/assets/js/jquery.dataTables.min.js', 'text/javascript')
-                ->appendFile('/assets/js/jquery.dataTables.bootstrap.js', 'text/javascript');
+                ->appendFile('/assets/js/jquery.dataTables.bootstrap.js', 'text/javascript')
+                ->appendFile('/assets/js/run/runDataTable.js', 'text/javascript');
 
         $formDatosClientes = $this->_formPedido->getDatosCliente();
 
@@ -204,11 +261,11 @@ class Ventas_PedidosController extends Zend_Controller_Action
 
             $modelPhA = new Ventas_Model_PedidosHasArticulos();
             $fila = $modelPhA->getArticulo($this->_getParam('id'));
-            
+
             if ($fila) {
                 $idpedido = $fila->idpedido;
-                $fila->delete();          
-                return $this->redirect('/ventas/pedidos/editar/id/' . $idpedido.'#art');
+                $fila->delete();
+                return $this->redirect('/ventas/pedidos/editar/id/' . $idpedido . '#art');
             } else {
 
                 echo 'Error del Sitema';
@@ -228,10 +285,5 @@ class Ventas_PedidosController extends Zend_Controller_Action
         // action body
     }
 
-    
-
-
 }
-
-
 

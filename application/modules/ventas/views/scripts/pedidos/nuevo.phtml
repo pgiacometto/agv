@@ -18,6 +18,9 @@
             <?php if ($this->error): ?>
                 <?php echo $this->errorBox($this->error); ?>
             <?php endif; ?>
+            <?php if ($this->exito): ?>
+                <?php echo $this->exitoBox($this->exito); ?>
+            <?php endif; ?>
             <form id="pedido" method="post" action="<?php echo $this->baseUrl . $this->formDatosClientes->getAction(); ?>" class="form-horizontal">
 
                 <div class="row-fluid">
@@ -59,13 +62,18 @@
 
                 <div class="row-fluid">
                     <div class="span7">
-                        <label ><h4>Descripción</h4>
+                        <label ><h4>Comentario</h4>
                             <?php echo $this->formDatosClientes->descripcion; ?>
                         </label>
                     </div>  
                 </div>
 
-                <div class="form-actions wizard-actions">                    
+                <div class="form-actions wizard-actions">
+                    <button type="button" data-toggle="modal-ajax" href="<?php echo $this->baseUrl('/ventas/pedidos/agregarcliente/')?>" class="btn btn-info" style="float: left">
+                        <i class="icon-plus-sign bigger-110"></i>
+                        Agregar Cliente
+                    </button>
+                   
                     <button type="reset" class="btn">
                         <i class="icon-undo bigger-110"></i>
                         Reset

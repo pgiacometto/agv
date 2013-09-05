@@ -27,7 +27,7 @@ class Application_Form_Pedido extends Zend_Form
        
     }
 
-    public function getDatosCliente()
+    public function getDatosCliente($idusuario = NULL)
     {
         $this->setAction('/ventas/pedidos/nuevo');
 
@@ -48,7 +48,7 @@ class Application_Form_Pedido extends Zend_Form
             'required' => true
         ));
         $this->vendedor->addMultiOptions(
-                $this->_modelVendedores->getValores()
+                $this->_modelVendedores->getValores($idusuario)
         );
         $this->addElement('select', 'condPago', array(
             'label' => 'Cond Pago',
@@ -80,9 +80,10 @@ class Application_Form_Pedido extends Zend_Form
             'data-date-format' => 'dd/mm/yyyy',        
         ));
         
-        $this->addElement('text', 'descripcion', array(
+        $this->addElement('textarea', 'descripcion', array(
             'label' => 'Descripcion',
             'class' => 'span',          
+            'rows' => '3',          
         ));
         
         // Validaciones
@@ -155,6 +156,26 @@ class Application_Form_Pedido extends Zend_Form
         return $this;    
     }
     
+    public function getCrearCliente()
+    {
+        $this->addElement('text', 'descripcion', array(
+            'label' => 'Razon Social',
+            'class' => 'span',                 
+        ));
+        $this->addElement('text', 'cod', array(
+            'label' => 'Codigo',
+            'class' => 'span',                 
+            'disabled' => 'true',                 
+        ));
+        $this->addElement('text', 'rif', array(
+            'label' => 'Rif',
+            'class' => 'span',                 
+        ));
+        
+        return $this;
+    }
+
+
     public function getBorrar()
     {
         $this->addElement('hidden','id');
