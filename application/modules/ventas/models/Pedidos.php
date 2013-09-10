@@ -6,7 +6,7 @@ class Ventas_Model_Pedidos extends Zend_Db_Table_Abstract
     protected $_name = 'pedidos';
     protected $_primary = 'idpedido';
 
-    public function addPedido($data)
+    public function addPedido($data,$idusuario)
     {
 
         $row = $this->createRow();
@@ -16,6 +16,7 @@ class Ventas_Model_Pedidos extends Zend_Db_Table_Abstract
         $row->idvendedor = $data['vendedor'];
         $row->descripcion = $data['descripcion'];
         $row->despacho = $data['fechaDespacho'];
+        $row->idusuario = $idusuario;
         $row->status = 'Registrado';
 
 //      $row->setFromArray($array);
@@ -30,7 +31,7 @@ class Ventas_Model_Pedidos extends Zend_Db_Table_Abstract
         
     }
     
-    public function getListaPedidos($idpedido = NULL)
+    public function getListaPedidos($idusuario = NULL)
     {
         $query = $this->select()
                 ->from(array('p' => 'pedidos'),array('p.idpedido','p.descripcion', 'p.status', 
@@ -39,8 +40,8 @@ class Ventas_Model_Pedidos extends Zend_Db_Table_Abstract
                 ->setIntegrityCheck(false);
               
         
-        if($idpedido){
-            $query->where('pha.idpedido = '.$idpedido);
+        if($idusuario){
+            $query->where('p.idusuario = '.$idusuario);
         }
         $query->order('p.create_at ASC');
         

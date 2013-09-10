@@ -1,0 +1,3 @@
+LOAD DATA INFILE 'datos/articulos.csv' INTO TABLE articulos
+FIELDS TERMINATED BY ';'
+LINES TERMINATED BY '\n';

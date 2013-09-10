@@ -27,10 +27,10 @@ class Ventas_Model_PedidosHasArticulos extends Zend_Db_Table_Abstract
     {
         $query = $this->select()
                 ->from(array('pha' => 'pedidos_has_articulos'),array('pha.idpha','pha.idpedido', 'a.idarticulo',
-                                                                     'ap.precio1', 'a.cod', 'a.descripcion',  'pha.cantidad', 
+                                                                     'a.precio1', 'a.cod', 'a.descripcion',  'pha.cantidad', 
                                                                      'pha.desc'))
                 ->join(array('a' => 'articulos'), 'pha.idarticulo = a.idarticulo',array(''))               
-                ->join(array('ap' => 'articulos_precios'), 'a.cod = ap.articulo_cod',array(''))               
+                //->join(array('ap' => 'articulos_precios'), 'a.cod = ap.articulo_cod',array(''))               
                              
                 ->setIntegrityCheck(false);
               

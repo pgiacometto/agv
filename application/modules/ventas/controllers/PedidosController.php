@@ -54,7 +54,7 @@ class Ventas_PedidosController extends Zend_Controller_Action
             if ($formDatosClientes->isValid($this->getAllParams())) {
 
 
-                $result = $this->_modelPedidos->addPedido($this->getAllParams());
+                $result = $this->_modelPedidos->addPedido($this->getAllParams(),  $this->_infoUsuario->idusuario);
 
                 if ($result->idpedido) {
 
@@ -140,7 +140,17 @@ class Ventas_PedidosController extends Zend_Controller_Action
                 ->appendFile('/assets/js/jquery.dataTables.bootstrap.js', 'text/javascript')
                 ->appendFile('/assets/js/run/runDataTable.js', 'text/javascript');
 
-        $pedidosLista = $this->_modelPedidos->getListaPedidos();
+        if ($this->_infoUsuario->tipo == 1) {
+
+            $pedidosLista = $this->_modelPedidos->getListaPedidos();
+            
+        } else {
+            
+            $pedidosLista = $this->_modelPedidos->getListaPedidos($this->_infoUsuario->idusuario);
+            
+        }
+
+
         //var_dump($pedidosLista);exit;
         $this->view->pedidosLista = $pedidosLista;
     }

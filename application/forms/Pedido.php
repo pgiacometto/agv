@@ -33,7 +33,7 @@ class Application_Form_Pedido extends Zend_Form
 
         $this->addElement('select', 'cliente', array(
             'label' => 'Cliente',
-            'class' => 'span chzn-select',
+            'class' => 'chzn-select',
             'data-placeholder' => 'Selecciona el cliente...',
             'required' => true
         ));
@@ -43,7 +43,7 @@ class Application_Form_Pedido extends Zend_Form
 
         $this->addElement('select', 'vendedor', array(
             'label' => 'Vendedor',
-            'class' => 'span chzn-select',
+            'class' => 'chzn-select',
             'data-placeholder' => 'Seleccione el Vendedor...',
             'required' => true
         ));
@@ -52,7 +52,7 @@ class Application_Form_Pedido extends Zend_Form
         );
         $this->addElement('select', 'condPago', array(
             'label' => 'Cond Pago',
-            'class' => 'span chzn-select',
+            'class' => 'chzn-select',
             'data-placeholder' => 'Selecciona la forma de pago...',
             'required' => true
         ));
