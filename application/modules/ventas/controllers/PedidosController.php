@@ -4,9 +4,13 @@ class Ventas_PedidosController extends Zend_Controller_Action
 {
 
     private $_infoUsuario = null;
+
     private $_baseUrl = null;
+
     private $_formPedido = null;
+
     private $_date = null;
+
     private $_modelPedidos = null;
 
     public function init()
@@ -295,5 +299,13 @@ class Ventas_PedidosController extends Zend_Controller_Action
         // action body
     }
 
+    public function detalleAction()
+    {
+        // action body
+    }
+
+
 }
+
+
 
