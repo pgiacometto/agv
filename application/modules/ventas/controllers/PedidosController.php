@@ -301,6 +301,30 @@ class Ventas_PedidosController extends Zend_Controller_Action
 
     public function detalleAction()
     {
+        if (!$this->_hasParam('id')) {
+            return $this->_redirect('/ventas/pedidos/');
+        }
+        
+        $rowPedido = $this->_modelPedidos->getPedido($this->getParam('id'));
+        
+        if($rowPedido){
+            
+            
+            $rowDetallePedido = $this->_modelPedidos->getDetallePedidos($this->getParam('id'));  
+            
+            $modelPhA = new Ventas_Model_PedidosHasArticulos();
+            $articulosPedido = $modelPhA->getArticulos($this->getParam('id'));
+            
+            $this->view->pedido = $rowDetallePedido;
+            $this->view->articulosPedidos = $articulosPedido;
+            //var_dump($articulosPedido);
+            
+            
+        }else{
+            
+            echo 'No exite';
+        }
+        
         // action body
     }
 

@@ -21,6 +21,28 @@ body:before {
 	z-index: -1;
 	background-color: #FFF
 }
+.tdetalle td{
+    font-size: 8px !important;
+    height: 15px !important;
+    line-height: 10px !important;
+    padding: 4px !important;
+}
+.tdetalle th{
+    font-size: 11px !important;
+    font-weight: bold;
+}
+.dheader {
+   font-size: 9px !important;  
+}
+
+.dheader .spaced > li {
+    margin-bottom: 1px;
+    margin-top: 1px;
+}
+.tdetalle tfoot{
+    line-height: 10px !important;
+    padding: 5px !important;
+}
 body.navbar-fixed {
 	padding-top: 45px
 }
